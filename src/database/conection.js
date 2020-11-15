@@ -28,6 +28,6 @@ let db = new sqlite3.Database(DBSOURCE,(err) => {
     }
 );
 
-db.close()
+//db.close()
 
 module.exports = db
