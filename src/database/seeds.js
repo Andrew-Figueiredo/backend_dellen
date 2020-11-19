@@ -19,3 +19,21 @@ db.run(`CREATE TABLE user (
     }
     }
 );
+//Create table category
+db.run(`CREATE TABLE category (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name text UNIQUE,
+    CONSTRAINT email_unique UNIQUE (name)
+    )`,(err) => {
+    if(err){
+        //Table already created
+        console.log('table already created.')
+    }else{
+        //seeds 
+        console.log('create seeds...')
+        var insert = 'INSERT INTO category (name) VALUES (?)'
+        db.run(insert,['Sapatos'])
+        db.run(insert,['Camisas'])
+    }
+    }
+);

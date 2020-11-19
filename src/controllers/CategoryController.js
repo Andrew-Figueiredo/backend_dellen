@@ -2,7 +2,7 @@ const db = require('../database/connection');
 
 module.exports = {
     async index(req,res){
-        var sql = "SELECT * from user";
+        var sql = "SELECT * from category";
         var params = [];
         await db.all(sql,params,(err,rows)=>{
             if(err){
@@ -17,32 +17,20 @@ module.exports = {
         });
     },
     async create(req,res){
-        var sql = "INSERT INTO user (name, email, password) VALUES (?,?,?)";
-        params = [req.body.name, req.body.email, req.body.password];
+        var sql = "INSERT INTO category (name) VALUES (?)";
+        params = [req.body.name];
 
-        await db.run(sql,params,(err,result)=>{
+        await db.run(sql,params,(err)=>{
             if(err){
                 res.status(500).json({"error":err.message});
             }else{
                 res.json({
                     "message":"success",
+                    "data":params
                 });
             }
             
         });
     },
-    async update(req,res){
-        var sql = "UPDATE user SET name = ?, password = ? WHERE (email = ?)";
-        params = [req.body.name, req.body.password, req.body.email];
-
-        await db.run(sql,params,(err,result)=>{
-            if(err){
-                res.status(500).json({"error":err.message});
-            }else{
-                res.json({
-                    "message":"success",
-                });
-            }
-        });
-    }
 }
+    
