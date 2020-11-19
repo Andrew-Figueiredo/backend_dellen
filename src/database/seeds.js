@@ -1,15 +1,7 @@
-const sqlite3 = require('sqlite3').verbose();
+const db = require('./connection');
 
-const DBSOURCE = "dellen.db"
 
-let db = new sqlite3.Database(DBSOURCE,(err) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log('Connected to the SQlite database.');
-  });
-
-  db.run(`CREATE TABLE user (
+db.run(`CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name text, 
     email text UNIQUE, 
@@ -27,7 +19,3 @@ let db = new sqlite3.Database(DBSOURCE,(err) => {
     }
     }
 );
-
-//db.close()
-
-module.exports = db
