@@ -1,4 +1,5 @@
 const db = require('../database/connection');
+const auth = require('./AuthController');
 
 module.exports = {
     async index(req,res){
@@ -17,6 +18,9 @@ module.exports = {
         });
     },
     async create(req,res){
+        if(!auth.auth_seller(req.body.email)){
+            res.status(500).json({"error":"fail auth"});  
+        }
         var sql = "INSERT INTO category (name) VALUES (?)";
         params = [req.body.name];
 

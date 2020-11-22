@@ -32,7 +32,31 @@ var product = `CREATE TABLE product (
     image_adress TEXT,
     CONSTRAINT name_unique UNIQUE (name)
     FOREIGN KEY (id_category) REFERENCES category (id)
-    )`
+    )`;
+
+var sale = `CREATE TABLE sale (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date TEXT,
+    status TEXT,
+    value REAL
+    )`;
+
+var line_item  = `CREATE TABLE line_item (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_sale INTEGER,
+    id_product INTEGER,
+    quantity INTEGER,
+    price REAL,
+    FOREIGN KEY (id_sale) REFERENCES sale (id),
+    FOREIGN KEY (id_product) REFERENCES product (id)
+    )`;
+
+db.run(sale,(err)=>{
+    if(err){console.log('table sale already created.')}
+});
+db.run(line_item,(err)=>{
+    if(err){console.log('table line_item already created.')}
+});
 
 db.run(client,(err) => {
     if(err){
