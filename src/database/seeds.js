@@ -1,20 +1,28 @@
 const db = require('./connection');
 
-var user = `CREATE TABLE user (
+var client = `CREATE TABLE client (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name text, 
     email text UNIQUE, 
-    password text, 
+    password text,
+    whatsapp text,
     CONSTRAINT email_unique UNIQUE (email)
     )`
+
+var seller = `CREATE TABLE seller (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name text, 
+    email text UNIQUE, 
+    password text,
+    CONSTRAINT email_unique UNIQUE (email)
+    )`;
 
 var category = `CREATE TABLE category (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name text UNIQUE,
     CONSTRAINT name_unique UNIQUE (name)
-    )`
+    )`;
 
-    //FOREIGN KEY (id_category) REFERENCES category (id)
 var product = `CREATE TABLE product (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     id_category INTEGER,
@@ -26,15 +34,27 @@ var product = `CREATE TABLE product (
     FOREIGN KEY (id_category) REFERENCES category (id)
     )`
 
-db.run(user,(err) => {
+db.run(client,(err) => {
     if(err){
         //Table already created
-        console.log('table user already created.')
+        console.log('table client already created.')
     }else{
         //seeds 
-        console.log('create seeds of user...')
-        var insert = 'INSERT INTO user (name, email, password) VALUES (?,?,?)'
-        db.run(insert,['user_test','test@test.com','test321'])
+        console.log('create seeds of client...')
+        var insert = 'INSERT INTO client (name, email, password, whatsapp) VALUES (?,?,?,?)'
+        db.run(insert,['client','client@test.com','client321','99-0000-0000'])
+    }
+    }
+);
+db.run(seller,(err) => {
+    if(err){
+        //Table already created
+        console.log('table seller already created.')
+    }else{
+        //seeds 
+        console.log('create seeds of seller...')
+        var insert = 'INSERT INTO seller (name, email, password) VALUES (?,?,?)'
+        db.run(insert,['vendendor','vendendor@test.com','vendendor321'])
     }
     }
 );

@@ -1,5 +1,6 @@
 # Backend_Dellen
 
-### Para criar o bando de dados executar "node ./src/database/seeds.js"
-### Testar o projeto executar "npm install" depois "nodemon ./src/server.js" 
+#### Download dependências "npm install"
+#### Para criar o bando de dados "node ./src/database/seeds.js" 
+#### Testar o projeto "nodemon ./src/server.js" 
 

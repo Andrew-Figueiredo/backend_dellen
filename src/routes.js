@@ -7,10 +7,13 @@ const routes = express.Router();
 
 routes.get('/', function(req, res) { res.json({hello : 'Welcome to dellen'});});
 
-//User
-routes.get('/users',UserController.index)
-routes.post('/users',UserController.create)
-routes.put('/users',UserController.update)
+//Client
+routes.get('/users',UserController.get_clients)
+routes.post('/users',UserController.create_user)
+routes.put('/users',UserController.update_user)
+
+//Seller
+routes.get('/sellers',UserController.get_sellers)
 
 //Category
 routes.get('/category',CategoryController.index)

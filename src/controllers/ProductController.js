@@ -8,7 +8,6 @@ const create = async (req,res)=>{
         if(err){
             res.status(500).json(err.message);
         }else{
-            console.log(result)
             res.json({
                 "message":"success",
             });
