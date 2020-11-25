@@ -4,7 +4,7 @@ var client = `CREATE TABLE client (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name text, 
     email text UNIQUE, 
-    password text,
+    password text NOT NULL,
     whatsapp text,
     CONSTRAINT email_unique UNIQUE (email)
     )`
@@ -13,7 +13,7 @@ var seller = `CREATE TABLE seller (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name text, 
     email text UNIQUE, 
-    password text,
+    password text NOT NULL,
     CONSTRAINT email_unique UNIQUE (email)
     )`;
 

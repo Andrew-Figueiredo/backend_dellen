@@ -21,7 +21,7 @@ module.exports = {
         var params = [];
         await db.all(sql,params,(err,rows)=>{
             if(err){
-                res.status(400).json({"error":err.message})
+                res.status(500).json({"error":err.message})
                 return;
             }else{
                 res.json({
@@ -41,6 +41,7 @@ module.exports = {
         }
         
         await db.run(sql,params,(err,result)=>{
+            console.log(result)
             if(err){
                 res.status(500).json({"error":err.message});
             }else{
