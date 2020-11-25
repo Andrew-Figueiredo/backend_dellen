@@ -40,8 +40,7 @@ module.exports = {
             params = [req.body.name, req.body.email, req.body.password,req.body.whatsapp];
         }
         
-        await db.run(sql,params,(err,result)=>{
-            console.log(result)
+        await db.run(sql,params,(err)=>{
             if(err){
                 res.status(500).json({"error":err.message});
             }else{
@@ -69,5 +68,20 @@ module.exports = {
                 });
             }
         });
+    },
+    async get_client(req,res){
+        var sql = "SELECT * FROM client WHERE (email = ? AND password = ?)";
+        var params = [req.body.email, req.body.password];
+        
+        await db.get(sql,params,(err,row)=>{
+            if(err){
+                res.status(500).json(err.message)
+            }else{
+                res.json({
+                    "message":"success",
+                    "data":row,
+                });
+            }
+        })
     }
 }

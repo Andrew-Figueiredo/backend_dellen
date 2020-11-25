@@ -11,6 +11,7 @@ routes.get('/', function(req, res) { res.json({hello : 'Welcome to dellen'});});
 routes.get('/users',UserController.get_clients)
 routes.post('/users',UserController.create_user)
 routes.put('/users',UserController.update_user)
+routes.post('/client',UserController.get_client)
 
 //Seller
 routes.get('/sellers',UserController.get_sellers)

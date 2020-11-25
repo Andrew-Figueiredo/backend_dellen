@@ -5,8 +5,16 @@ const create = async (req,res)=>{
     if(!auth.auth_seller(req.body.email)){
         res.status(500).json({"error":"fail auth"});  
     }
-    var insert = 'INSERT INTO product (id_category,name,price,quantity,image_adress) VALUES (?,?,?,?,?)';
-    params = [req.body.id_category,req.body.name,req.body.price,req.body.quantity,req.body.image_adress];
+    var insert = 'INSERT INTO product (id_category,name,price,quantity,image_adress,brand,genre,age_range) VALUES (?,?,?,?,?)';
+    params = [req.body.id_category,
+        req.body.name,
+        req.body.price,
+        req.body.quantity,
+        req.body.image_adress,//link da imagem na interwebs
+        req.body.brand,//Marca
+        req.body.genre,//Gênero
+        req.body.age_range//Faixa etária de idade
+    ];
 
     await db.run(insert,params,(err)=>{
         if(err){

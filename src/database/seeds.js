@@ -29,11 +29,15 @@ var product = `CREATE TABLE product (
     name TEXT,
     price REAL,
     quantity INTEGER,
+    brand TEXT,
+    genre TEXT,
+    age_range TEXT,
     image_adress TEXT,
     CONSTRAINT name_unique UNIQUE (name)
     FOREIGN KEY (id_category) REFERENCES category (id)
     )`;
 
+// COMO ORDER TEM UM NOME DE COMANDO SQL, SUBTITUI POR SALE PARA REGISTRAR A COMPRA.
 var sale = `CREATE TABLE sale (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     date TEXT,
