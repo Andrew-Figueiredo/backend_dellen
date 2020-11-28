@@ -1,4 +1,4 @@
-const sqlite3 = require('sqlite3').verbose();
+/*const sqlite3 = require('sqlite3').verbose();
 const DBSOURCE = "dellen.db"
 
 let db = new sqlite3.Database(DBSOURCE,(err) => {
@@ -10,4 +10,22 @@ let db = new sqlite3.Database(DBSOURCE,(err) => {
 
 //db.close()
 
-module.exports = db
+module.exports = db*/
+
+const {Pool} = require('pg');
+const connectionString = 'postgresql://postgres:postgres@localhost:5432/ellen'
+
+const pool = new Pool({
+  connectionString,
+});
+
+pool.connect((err)=>{
+  if(err){
+    console.log("ERROR")
+  }else{
+    console.log("tudo de boas")
+  }
+});
+
+
+
