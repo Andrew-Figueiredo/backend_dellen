@@ -2,86 +2,99 @@ const db = require('../database/connection');
 
 module.exports = {
     async get_clients(req,res){
-        var sql = "SELECT * from client";
-        var params = [];
-        await db.all(sql,params,(err,rows)=>{
-            if(err){
-                res.status(400).json({"error":err.message})
-                return;
-            }else{
-                res.json({
-                    "message":"success",
-                    "data":rows
-                });
-            }
-        });
+        const sql = "SELECT * from public.client";
+        
+        try{
+            const response = await db.query(sql);
+            
+            res.status(200).json({
+                "message":"success",
+                "data":response.rows
+            });
+        }catch(e){
+            res.status(500).json(e.detail);
+        }
     },
     async get_sellers(req,res){
-        var sql = "SELECT * from seller";
-        var params = [];
-        await db.all(sql,params,(err,rows)=>{
-            if(err){
-                res.status(500).json({"error":err.message})
-                return;
-            }else{
-                res.json({
-                    "message":"success",
-                    "data":rows
-                });
-            }
-        });
+        const sql = "SELECT * from public.seller";
+        try{
+            const response = await db.query(sql);
+
+            res.status(200).json({
+                "message":"success",
+                "data":response.rows
+            });
+        }catch(e){
+            res.status(500).json(e.detail);
+        }
     },
     async create_user(req,res){
-        var sql = "INSERT INTO seller (name, email, password) VALUES (?,?,?)";
-        var params = [req.body.name, req.body.email,req.body.password];
+        var sql = "INSERT INTO seller (name, email, password) VALUES ($1,$2,$3)";
+        const {name, email, password, whatsapp} = req.body;
+        var params = [name, email, password]
 
-        if(req.body.whatsapp){
-            sql = "INSERT INTO client (name, email, password, whatsapp) VALUES (?,?,?,?)";
-            params = [req.body.name, req.body.email, req.body.password,req.body.whatsapp];
+        if(whatsapp){
+            sql = "INSERT INTO client (name, email, password, whatsapp) VALUES ($1,$2,$3,$4)";
+            params = [name, email, password, whatsapp]
+        }
+        try{
+            const {rows} = await db.query(
+                sql,
+                params   
+            );
+            res.status(201).json({
+                "message":"success",
+                "data":[name,email]
+            });
+        }catch(e){
+            res.status(500).json(e.detail);
         }
         
-        await db.run(sql,params,(err)=>{
-            if(err){
-                res.status(500).json({"error":err.message});
-            }else{
-                res.json({
-                    "message":"success",
-                });
-            }
-            
-        });
     },
-    async update_user(req,res){
-        var sql = "UPDATE seller SET name = ?, password = ? WHERE (email = ?)";
-        var params = [req.body.name, req.body.password, req.body.email];
+    async update_user(req,res){//Falta arrumar essa rota
+        var sql = "UPDATE seller SET password = $1 WHERE (email = $2 AND password = $4)";
+        var params = [req.body.new_password, req.body.email, req.body.password];
 
-        if(req.body.whatsapp){
-            sql = "UPDATE client SET name = ?, password = ?, whatsapp = ? WHERE (email = ?)";
-            params = [req.body.name, req.body.password, req.body.whatsapp,req.body.email];
+        if(req.body.new_whatsapp){
+            sql = "UPDATE client SET password = $1, whatsapp = $2 WHERE (email = $3 AND password = $4)";
+            params = [req.body.new_password, req.body.new_whatsapp, req.body.email, req.body.password];
         }
-        await db.run(sql,params,(err)=>{
-            if(err){
-                res.status(500).json({"error":err.message});
-            }else{
-                res.json({
-                    "message":"success",
+
+        try{
+            const response = await db.query(
+                sql,
+                params
+            );
+            console.log("resposne",response.rowCount);
+            if(response.rowCount){
+                res.status(200).json({
+                    "message":"User Updated Successfully",
                 });
-            }
-        });
+            }else{
+                res.status(203).json({
+                    "message":"Fail auth"
+                });
+            }            
+        }catch(e){
+            res.status(500).json(e.detail);
+        }
+        
     },
     async get_client(req,res){
-        var sql = "SELECT * FROM client WHERE (email = ? AND password = ?)";
-        var params = [req.body.email, req.body.password];
+        var sql = "SELECT * FROM client WHERE (email = $1 AND password = $2)";
+        const {email,password} = req.body
         
-        await db.get(sql,params,(err,row)=>{
-            if(err){
-                res.status(500).json(err.message)
-            }else{
-                res.json({
-                    "message":"success",
-                    "data":row,
-                });
-            }
-        })
+        try{
+            const response = await db.query(
+                sql,
+                [email,password],
+            );
+            res.status(200).json({
+                "message":"success",
+                "data":response.rows
+            });
+        }catch(e){
+            res.status(500).json(e.detail);
+        }
     }
 }
