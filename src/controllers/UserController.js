@@ -52,7 +52,7 @@ module.exports = {
         
     },
     async update_user(req,res){//Falta arrumar essa rota
-        var sql = "UPDATE seller SET password = $1 WHERE (email = $2 AND password = $4)";
+        var sql = "UPDATE seller SET password = $1 WHERE (email = $2 AND password = $3)";
         var params = [req.body.new_password, req.body.email, req.body.password];
 
         if(req.body.new_whatsapp){
@@ -65,7 +65,7 @@ module.exports = {
                 sql,
                 params
             );
-            console.log("resposne",response.rowCount);
+            console.log(response)
             if(response.rowCount){
                 res.status(200).json({
                     "message":"User Updated Successfully",
@@ -76,7 +76,7 @@ module.exports = {
                 });
             }            
         }catch(e){
-            res.status(500).json(e.detail);
+            res.status(500).json(e);
         }
         
     },
