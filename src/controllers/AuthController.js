@@ -18,7 +18,7 @@ const auth_seller = async (email,password)=>{
     const sql = "SELECT id FROM seller WHERE (email = $1 AND password = $2)";
     try{
         const response = await db.query(sql,[email,password]);
-        
+        console.log(response.rowCount)
         if(response.rowCount > 0){
             return true
         }

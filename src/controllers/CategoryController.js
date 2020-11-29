@@ -21,7 +21,7 @@ module.exports = {
             const val = await auth.auth_seller(email,password);
 
             if(!val){
-                res.status(500).json({"error":"fail auth"});  
+                res.status(203).json({"error":"fail auth"});  
             }else{
                 const sql = "INSERT INTO category (name) VALUES ($1)";;
             
