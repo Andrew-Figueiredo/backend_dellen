@@ -1,7 +1,8 @@
 const  express = require('express');
 const UserController = require('./controllers/UserController');
 const CategoryController = require('./controllers/CategoryController');
-const ProductController = require('./controllers/ProductController')
+const ProductController = require('./controllers/ProductController');
+const OrderController = require('./controllers/OrderController');
 
 const routes = express.Router();
 
@@ -23,4 +24,9 @@ routes.post('/category',CategoryController.create)
 //Product
 routes.get('/products',ProductController.get_products)
 routes.post('/products',ProductController.create)
+routes.put('/products/:category',ProductController.products_by_category)
+
+//compras
+routes.post('/order',OrderController.create_order)
+routes.get('/order',OrderController.get_orders)
 module.exports = routes;

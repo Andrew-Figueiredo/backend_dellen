@@ -34,14 +34,15 @@ module.exports = {
         var params = [name, email, password]
 
         if(whatsapp){
-            sql = "INSERT INTO client (name, email, password, whatsapp) VALUES ($1,$2,$3,$4)";
+            sql = "INSERT INTO client (name, email, password, whatsapp) VALUES ($1,$2,$3,$4) RETURNING id";
             params = [name, email, password, whatsapp]
         }
         try{
-            const {rows} = await db.query(
+            const response = await db.query(
                 sql,
                 params   
             );
+            console.log(response.rows[0].id)
             res.status(201).json({
                 "message":"success",
                 "data":[name,email]

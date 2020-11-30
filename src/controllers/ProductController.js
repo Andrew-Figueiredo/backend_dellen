@@ -30,11 +30,25 @@ const create = async (req,res)=>{
     }
 
 };
+const products_by_category = async (req,res)=>{
+    const sql = "SELECT * FROM product WHERE (id_category = $1)";
+    const category = [parseInt(req.params.category)];
 
+    try{
+        const {rows} = await db.query(sql,category)
+        res.status(200).json({
+            "message":"success",
+            "data":rows
+        });
+    }catch(e){
+        res.status(500).json(e.detail)
+    }
+
+};
 
 module.exports = {
     async get_products(req,res){
-        const sql = "SELECT * from product";
+        const sql = "SELECT * from product ORDER BY id_category ASC";
         
         try{
             const {rows} = await db.query(sql);
@@ -49,5 +63,6 @@ module.exports = {
         
 
     },
-    create
+    create,
+    products_by_category
 }
