@@ -45,6 +45,22 @@ const products_by_category = async (req,res)=>{
     }
 
 };
+const products_by_id = async (req,res)=>{
+    const sql = "SELECT * FROM product WHERE (id = $1)";
+    const category = [parseInt(req.params.id)];
+
+    try{
+        const {rows} = await db.query(sql,category)
+        res.status(200).json({
+            "message":"success",
+            "data":rows
+        });
+    }catch(e){
+        res.status(500).json(e.detail)
+    }
+
+};
+
 
 module.exports = {
     async get_products(req,res){
@@ -64,5 +80,6 @@ module.exports = {
 
     },
     create,
-    products_by_category
+    products_by_category,
+    products_by_id
 }

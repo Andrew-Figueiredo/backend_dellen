@@ -23,6 +23,7 @@ routes.post('/category',CategoryController.create)
 
 //Product
 routes.get('/products',ProductController.get_products)
+routes.get('/products/:id',ProductController.products_by_id)
 routes.post('/products',ProductController.create)
 routes.put('/products/:category',ProductController.products_by_category)
 
