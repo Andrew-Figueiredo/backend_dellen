@@ -21,7 +21,7 @@ const create = async (req,res)=>{
         ];
         try{
             const response = await db.query(sql,params);
-            res.status(201).json({
+            res.status(200).json({
                 "message":"success"
             });
         }catch(e){

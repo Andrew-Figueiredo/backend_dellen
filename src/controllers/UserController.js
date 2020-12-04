@@ -90,6 +90,7 @@ module.exports = {
                 sql,
                 [email,password],
             );
+            console.log(response.rows[0].id)
             res.status(200).json({
                 "message":"success",
                 "data":response.rows

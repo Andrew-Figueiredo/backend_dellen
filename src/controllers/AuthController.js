@@ -5,8 +5,10 @@ const auth_client = async (email,password)=>{
     
     try{
         const response = await db.query(sql,[email,password]);
+        console.log(response.rowCount)
+        console.log(response.rows[0].id)
         if(response.rowCount>0){
-            return true
+            return response.rows[0].id
         }
         return false
     }catch(e){

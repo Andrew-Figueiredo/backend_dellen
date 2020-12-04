@@ -46,6 +46,7 @@ CREATE TABLE sale (
     id SERIAL PRIMARY KEY NOT NULL,
     date TEXT,
     status TEXT,
+    clientid INTEGER,
     value REAL
 );
 

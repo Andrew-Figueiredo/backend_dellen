@@ -26,7 +26,7 @@ module.exports = {
                 const sql = "INSERT INTO category (name) VALUES ($1)";;
             
                 const {rows} = await db.query(sql,[category_name]);
-                res.status(201).json({
+                res.status(200).json({
                     "message":"success",
                     "data":[category_name]
                 });
