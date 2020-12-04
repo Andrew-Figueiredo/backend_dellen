@@ -25,7 +25,7 @@ const create_order = async (req,res)=>{
 
     if(val){
         try{
-            const sql = "INSERT INTO sale (date,status,price,client_id) VALUES ($1,$2,$3,$4) RETURNING id";
+            const sql = "INSERT INTO sale (date,status,price,id_client) VALUES ($1,$2,$3,$4) RETURNING id";
             const response = await db.query(sql,params);
             var id = response.rows[0].id;
             

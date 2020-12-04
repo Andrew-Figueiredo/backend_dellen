@@ -46,8 +46,9 @@ CREATE TABLE sale (
     id SERIAL PRIMARY KEY NOT NULL,
     date TEXT,
     status TEXT,
-    clientid INTEGER,
-    value REAL
+    id_client INTEGER,
+    value REAL, 
+    FOREIGN KEY (id_client) REFERENCES client (id)
 );
 
 CREATE TABLE line_item (
