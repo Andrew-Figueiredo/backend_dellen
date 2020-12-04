@@ -30,4 +30,5 @@ routes.put('/products/:category',ProductController.products_by_category)
 //compras
 routes.post('/order',OrderController.create_order)
 routes.get('/order',OrderController.get_orders)
+routes.get('/total',OrderController.total_amount)
 module.exports = routes;

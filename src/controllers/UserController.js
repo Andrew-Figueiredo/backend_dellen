@@ -12,7 +12,7 @@ module.exports = {
                 "data":response.rows
             });
         }catch(e){
-            res.status(500).json(e.detail);
+            res.status(401).json(e.detail);
         }
     },
     async get_sellers(req,res){
@@ -25,7 +25,7 @@ module.exports = {
                 "data":response.rows
             });
         }catch(e){
-            res.status(500).json(e.detail);
+            res.status(401).json(e.detail);
         }
     },
     async create_user(req,res){
@@ -72,7 +72,7 @@ module.exports = {
                     "message":"User Updated Successfully",
                 });
             }else{
-                res.status(203).json({
+                res.status(401).json({
                     "message":"Fail auth"
                 });
             }            
@@ -90,7 +90,6 @@ module.exports = {
                 sql,
                 [email,password],
             );
-            console.log(response.rows[0].id)
             res.status(200).json({
                 "message":"success",
                 "data":response.rows

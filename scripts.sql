@@ -47,7 +47,6 @@ CREATE TABLE sale (
     date TEXT,
     status TEXT,
     id_client INTEGER,
-    value REAL, 
     FOREIGN KEY (id_client) REFERENCES client (id)
 );
 
